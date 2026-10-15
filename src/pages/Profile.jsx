@@ -11,9 +11,6 @@ const data=useLocation().state
   function handleSubmit(event)
   {
     event.preventDefault()
-    // axios
-// Profile.jsx  
-// useNavigate("/profile", {state:{formData}})
   }
 
   useEffect(function()
@@ -33,7 +30,7 @@ const data=useLocation().state
        <div>
           <label htmlFor="name">Name</label>
           <input
-            id="name"
+            id="name" required
             className="form-control form-control-sm"
             type="text"
             placeholder="Name" value={name} 
@@ -46,7 +43,7 @@ const data=useLocation().state
        <div>
           <label htmlFor="email">Email-id</label>
           <input
-            id="email"
+            id="email" required
             className="form-control form-control-sm"
             type="email"
             placeholder="Email-id" value={email} 

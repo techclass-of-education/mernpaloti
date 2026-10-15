@@ -30,7 +30,7 @@ export function Register() {
           <input
             id="name"
             className="form-control form-control-sm"
-            type="text"
+            type="text" required
             placeholder="Name" value={name} 
             onChange={function(event){
                          setName(event.target.value)
@@ -41,7 +41,7 @@ export function Register() {
        <div>
           <label htmlFor="email">Email-id</label>
           <input
-            id="email"
+            id="email" required
             className="form-control form-control-sm"
             type="email"
             placeholder="Email-id" value={email} 
@@ -54,7 +54,7 @@ export function Register() {
        <div>
           <label htmlFor="password">Password</label>
           <input
-            id="password"
+            id="password" required
             className="form-control form-control-sm"
             type="password"
             placeholder="Password" value={password} 
