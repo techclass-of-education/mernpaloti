@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { Navbar } from "../layout/Navbar"
 
@@ -58,6 +58,7 @@ const data=useLocation().state
         {/* <button className="btn btn-primary">Register</button>
         <Link className="text-dark mx-3" to={"/"}>Login</Link> */}
       </form>
+      <Link to={"/change"} className="text-danger">Change Password</Link>
      </div>
 
         
