@@ -5,6 +5,7 @@ import { IncidentList } from "./pages/IncidentsList.jsx";
 import { AddIncident } from "./pages/AddIncident.jsx";
 import { IncidentDetails } from "./pages/IncidentDetails.jsx";
 import { Register } from "./pages/Register.jsx";
+import { Profile } from "./pages/Profile.jsx";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
                   <Route path="/add" element={<AddIncident/>}/>
                   <Route path="/details" element={<IncidentDetails/>}/>
                   <Route path="/register" element={<Register/>}/>
+                  <Route path="/profile" element={<Profile/>}/>
               </Routes>
       </BrowserRouter>
     </>

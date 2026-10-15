@@ -1,18 +1,27 @@
 import { useState } from "react";
 import { Navbar } from "../layout/Navbar";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function Register() {
   const [name,setName]=useState("")
+  const [email,setEmail]=useState("")
+  const [password,setPassword]=useState("")
+  const navigate=useNavigate()
 
-  function handleSubmit()
+  function handleSubmit(event)
   {
+    event.preventDefault()
+    // axios
+    // Profile.jsx open
 
+    navigate("/profile", {state:{ name,email }})
   }
 
   return (
     <>
     <Navbar/>
-    <div className="alert alert-light">
+    <div className="alert alert-light w-50 mx-auto mt-5">
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
 
@@ -35,25 +44,28 @@ export function Register() {
             id="email"
             className="form-control form-control-sm"
             type="email"
-            placeholder="Email-id" value={name} 
+            placeholder="Email-id" value={email} 
             onChange={function(event){
-                         setName(event.target.value)
+                         setEmail(event.target.value)
                     }}
           />
         </div>
+
        <div>
           <label htmlFor="password">Password</label>
           <input
             id="password"
             className="form-control form-control-sm"
             type="password"
-            placeholder="Password" value={name} 
+            placeholder="Password" value={password} 
             onChange={function(event){
-                         setName(event.target.value)
+                         setPassword(event.target.value)
                     }}
           />
         </div>
 
+        <button className="btn btn-primary">Register</button>
+        <Link className="text-dark mx-3" to={"/"}>Login</Link>
       </form>
      </div>
     </>
