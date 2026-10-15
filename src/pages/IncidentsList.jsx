@@ -10,6 +10,12 @@ export function IncidentList() {
     navigate("/details", { state: { incident } });
   }
 
+
+  function handleDelete(incident)
+  {
+      alert(incident.title)
+  }
+
   // this useEffect will run on [search,status,category] these dependencies
   const [filteredIncidents, setFilteredIncidents] = useState(mockIncidents);
   const [category, setCategory] = useState("");
@@ -136,7 +142,11 @@ export function IncidentList() {
               >
                 Edit
               </button>
-              <button type="button" className="btn btn-danger mx-3">
+              <button type="button" className="btn btn-danger mx-3" onClick={
+                                                                              function(){
+                                                                                handleDelete(e)
+                                                                              }
+                                                                            }>
                 Delete
               </button>
             </div>
