@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Navbar } from "../layout/Navbar";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export function Register() {
   const [name,setName]=useState("")
@@ -9,18 +10,31 @@ export function Register() {
   const [password,setPassword]=useState("")
   const navigate=useNavigate()
 
-  function handleSubmit(event)
+  async function handleSubmit(event)
   {
     event.preventDefault()
-    // axios
-    // Profile.jsx open
+     const res = await axios.post("http://localhost:5000/reg", {
+      name,
+      email,
+      password,
+    });
 
-    navigate("/profile", {state:{ name,email }})
+    if(res.data.reg)
+    {
+      alert("Register successfull")
+    }
+    else
+      {
+      alert("Register Failed")
+
+    }
+
+    // navigate("/profile", {state:{ name,email }})
   }
 
   return (
     <>
-    <Navbar/>
+   
     <div className="alert alert-light w-50 mx-auto mt-5">
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>

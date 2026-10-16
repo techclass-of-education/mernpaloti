@@ -1,7 +1,8 @@
 import { Navbar } from "../layout/Navbar.jsx";
-import { mockIncidents } from "../data/incidents.js";
+// import { mockIncidents } from "../data/incidents.js";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 export function IncidentList() {
   const navigate = useNavigate();
@@ -10,17 +11,25 @@ export function IncidentList() {
     navigate("/details", { state: { incident } });
   }
 
-
-  function handleDelete(incident)
-  {
-      alert(incident.title)
+  function handleDelete(incident) {
+    alert(incident.title);
   }
 
+ 
+
   // this useEffect will run on [search,status,category] these dependencies
-  const [filteredIncidents, setFilteredIncidents] = useState(mockIncidents);
+  const [filteredIncidents, setFilteredIncidents] = useState([]);
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("");
+
+   useEffect(function () {
+    // fetch incident list using axios
+    axios.get("http://localhost:5000/incident").then(function(res){
+
+      setFilteredIncidents(res.data.incidents)
+    })
+  }, []);
 
   useEffect(
     function () {
@@ -142,11 +151,13 @@ export function IncidentList() {
               >
                 Edit
               </button>
-              <button type="button" className="btn btn-danger mx-3" onClick={
-                                                                              function(){
-                                                                                handleDelete(e)
-                                                                              }
-                                                                            }>
+              <button
+                type="button"
+                className="btn btn-danger mx-3"
+                onClick={function () {
+                  handleDelete(e);
+                }}
+              >
                 Delete
               </button>
             </div>
