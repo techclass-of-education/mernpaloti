@@ -1,11 +1,12 @@
+import axios from "axios";
 import { Navbar } from "../layout/Navbar";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 
 export function IncidentDetails() {
 
 const incident=useLocation().state.incident
-
+const navigate=useNavigate()
 
 const [title,setTitle]=useState(incident.title)
 const [category,setCategory]=useState(incident.category)
@@ -13,22 +14,26 @@ const [severity,setSeverity]=useState(incident.severity)
 const [desc,setDesc]=useState(incident.description)
 
 
-function handleSubmit()
+async function handleSubmit()
 {
     const formValues={
-        _id:incident._id,
+       
         title,
         category,
         severity,
         description:desc,
         status: incident.status,
         reportedBy: incident.reportedBy,
-        createdAt: incident.createdAt,
-        updatedAt: incident.updatedAt
+       
     }
 
-    console.log(formValues)
-    alert("Incident Saved")
+    const res=await axios.put("http://localhost:5000/incident/"+incident._id,
+      formValues)
+
+    alert(res.data.msg)
+
+navigate("/list")
+   
 }
 
 

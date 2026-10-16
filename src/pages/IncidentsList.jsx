@@ -8,14 +8,24 @@ export function IncidentList() {
   const navigate = useNavigate();
 
   function handleEdit(incident) {
+
+    
     navigate("/details", { state: { incident } });
   }
 
-  function handleDelete(incident) {
-    alert(incident.title);
-  }
+  async function handleDelete(incident) {
+    // console.log(incident);
 
- 
+    const res = await axios.delete("http://localhost:5000/incident/" + incident._id);
+
+    if (res.data.del) {
+      alert(res.data.msg);
+    } else {
+      alert(res.data.msg);
+    }
+
+    // alert(incident.title);
+  }
 
   // this useEffect will run on [search,status,category] these dependencies
   const [filteredIncidents, setFilteredIncidents] = useState([]);
@@ -23,12 +33,11 @@ export function IncidentList() {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("");
 
-   useEffect(function () {
+  useEffect(function () {
     // fetch incident list using axios
-    axios.get("http://localhost:5000/incident").then(function(res){
-
-      setFilteredIncidents(res.data.incidents)
-    })
+    axios.get("http://localhost:5000/incident").then(function (res) {
+      setFilteredIncidents(res.data.incidents);
+    });
   }, []);
 
   useEffect(
