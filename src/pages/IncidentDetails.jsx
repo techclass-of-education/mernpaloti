@@ -1,61 +1,54 @@
 import axios from "axios";
 import { Navbar } from "../layout/Navbar";
 import { useState } from "react";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function IncidentDetails() {
+  const incident = useLocation().state.incident;
+  const navigate = useNavigate();
 
-const incident=useLocation().state.incident
-const navigate=useNavigate()
+  const [title, setTitle] = useState(incident.title);
+  const [category, setCategory] = useState(incident.category);
+  const [severity, setSeverity] = useState(incident.severity);
+  const [desc, setDesc] = useState(incident.description);
 
-const [title,setTitle]=useState(incident.title)
-const [category,setCategory]=useState(incident.category)
-const [severity,setSeverity]=useState(incident.severity)
-const [desc,setDesc]=useState(incident.description)
+  async function handleSubmit() {
+    const formValues = {
+      title,
+      category,
+      severity,
+      description: desc,
+      status: incident.status,
+      reportedBy: incident.reportedBy,
+    };
 
+    const res = await axios.put(
+      "http://localhost:5000/incident/" + incident._id,
+      formValues,{withCredentials:true}
+    );
 
-async function handleSubmit()
-{
-    const formValues={
-       
-        title,
-        category,
-        severity,
-        description:desc,
-        status: incident.status,
-        reportedBy: incident.reportedBy,
-       
-    }
+    alert(res.data.msg);
 
-    const res=await axios.put("http://localhost:5000/incident/"+incident._id,
-      formValues)
-
-    alert(res.data.msg)
-
-navigate("/list")
-   
-}
-
+    navigate("/list");
+  }
 
   return (
     <>
       <Navbar />
 
-    
-
       <div className="alert w-50 mx-auto mt-3 alert-light" role="alert">
-         <h1>Incidents Details</h1>
+        <h1>Incidents Details</h1>
         <div>
           <label htmlFor="title">Title</label>
           <input
             id="title"
             className="form-control form-control-sm"
             type="text"
-            placeholder="Title" value={title} 
-
-            onChange={function(event){
-                         setTitle(event.target.value)
-                    }}
+            placeholder="Title"
+            value={title}
+            onChange={function (event) {
+              setTitle(event.target.value);
+            }}
           />
         </div>
 
@@ -64,9 +57,10 @@ navigate("/list")
           <select
             id="category"
             className="form-select"
-            aria-label="Default select example" value={category}
-            onChange={function(event){
-                setCategory(event.target.value)
+            aria-label="Default select example"
+            value={category}
+            onChange={function (event) {
+              setCategory(event.target.value);
             }}
           >
             <option selected>select category</option>
@@ -84,13 +78,14 @@ navigate("/list")
           <select
             id="severity"
             className="form-select"
-            aria-label="Default select example" value={severity}
-              onChange={function(event){
-                setSeverity(event.target.value)
+            aria-label="Default select example"
+            value={severity}
+            onChange={function (event) {
+              setSeverity(event.target.value);
             }}
           >
             <option selected>Select severity</option>
-          
+
             <option value="High">High</option>
             <option value="Critical">Critical</option>
             <option value="Medium">Medium</option>
@@ -100,15 +95,24 @@ navigate("/list")
 
         <div>
           <label htmlFor="desc">Description</label>
-          <textarea className="form-control" id="desc" placeholder="Description"   
-            onChange={function(event){
-                setDesc(event.target.value)
-            }}>{desc}</textarea>
+          <textarea
+            className="form-control"
+            id="desc"
+            placeholder="Description"
+            onChange={function (event) {
+              setDesc(event.target.value);
+            }}
+          >
+            {desc}
+          </textarea>
         </div>
 
-        <button type="button" onClick={handleSubmit} 
-        className="btn btn-primary">
-            Update
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className="btn btn-primary"
+        >
+          Update
         </button>
       </div>
     </>

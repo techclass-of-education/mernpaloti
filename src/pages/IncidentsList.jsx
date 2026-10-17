@@ -16,7 +16,9 @@ export function IncidentList() {
   async function handleDelete(incident) {
     // console.log(incident);
 
-    const res = await axios.delete("http://localhost:5000/incident/" + incident._id);
+    const res = await axios.delete(
+      "http://localhost:5000/incident/" + incident._id,
+      {withCredentials:true});
 
     if (res.data.del) {
       alert(res.data.msg);
@@ -35,7 +37,8 @@ export function IncidentList() {
 
   useEffect(function () {
     // fetch incident list using axios
-    axios.get("http://localhost:5000/incident").then(function (res) {
+    axios.get("http://localhost:5000/incident",
+      {withCredentials:true}).then(function (res) {
       setFilteredIncidents(res.data.incidents);
     });
   }, []);

@@ -12,8 +12,8 @@ export function Login() {
     event.preventDefault();
     const res = await axios.post("http://localhost:5000/auth", {
       email,
-      password,
-    });
+      password},
+    {withCredentials:true});
     if (res.data.auth) {
 
       alert(res.data.msg);

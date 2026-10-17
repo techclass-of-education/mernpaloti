@@ -18,7 +18,9 @@ export function AddIncident() {
       reportedBy: "USER001",
     };
 
-    const res = await axios.post("http://localhost:5000/incident", formValues);
+    const res = await axios.post("http://localhost:5000/incident", 
+      formValues,
+      {withCredentials:true});
 
     if (res.data.save) {
       alert("Incident Saved");
